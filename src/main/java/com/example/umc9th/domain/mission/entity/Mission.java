@@ -18,14 +18,14 @@ import java.util.List;
 @Table(name = "mission")
 public class Mission extends BaseEntity {
 
-    @Column(name = "content")
-    private String missionContent;
+    @Column(name = "missionSpec")
+    private String missionSpec;
 
     @Column(name = "deadline")
     private LocalDateTime deadline;
 
-    @Column(name = "point")
-    private Integer missionPoint;
+    @Column(name = "reward")
+    private Integer reward;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")

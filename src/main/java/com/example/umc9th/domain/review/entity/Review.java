@@ -17,18 +17,18 @@ import java.util.List;
 @Table(name = "review")
 public class Review extends BaseEntity {
 
-    @Column(name = "content", nullable = false)
-    private String reviewContent;
+    @Column(name = "body", nullable = false)
+    private String reviewBody;
 
     @Column(name = "score", nullable = false)
     private Double reviewScore;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
     @OneToOne(fetch = FetchType.LAZY)

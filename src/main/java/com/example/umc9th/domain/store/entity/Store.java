@@ -19,10 +19,10 @@ import java.util.List;
 public class Store extends BaseEntity {
 
     @Column(name = "name")
-    private String StoreName;
+    private String storeName;
 
     @Column(name = "address")
-    private String StoreAddress;
+    private String storeAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
