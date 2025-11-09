@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.mission.dto.responseDTO;
+package com.example.umc9th.domain.mission.dto.response;
 
 import com.example.umc9th.domain.mission.enums.MissionStatus;
 import lombok.AllArgsConstructor;

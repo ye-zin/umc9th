@@ -1,6 +1,6 @@
 package com.example.umc9th.domain.member.service;
 
-import com.example.umc9th.domain.member.dto.reponseDTO.MyPageDTO;
+import com.example.umc9th.domain.member.dto.reponse.MyPageDTO;
 import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

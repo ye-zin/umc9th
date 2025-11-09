@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.member.dto.reponseDTO;
+package com.example.umc9th.domain.member.dto.reponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

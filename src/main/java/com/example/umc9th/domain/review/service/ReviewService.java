@@ -1,12 +1,15 @@
 package com.example.umc9th.domain.review.service;
 
 import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.review.dto.response.MyReviewDTO;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.example.umc9th.domain.store.entity.Store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,10 @@ public class ReviewService {
                               .build();
 
         return reviewRepository.save(review);
+    }
+
+    public List<MyReviewDTO> getMyReviews(Long memberId, String storeName, Double reviewScore) {
+        return reviewRepository.findMyReviews(memberId, storeName, reviewScore);
     }
 
 }

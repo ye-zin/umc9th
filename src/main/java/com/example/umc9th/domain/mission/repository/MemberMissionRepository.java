@@ -1,6 +1,6 @@
 package com.example.umc9th.domain.mission.repository;
 
-import com.example.umc9th.domain.mission.dto.responseDTO.MemberMissionDTO;
+import com.example.umc9th.domain.mission.dto.response.MemberMissionDTO;
 import com.example.umc9th.domain.mission.enums.MissionStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +11,7 @@ public interface MemberMissionRepository {
 
     // 미션 상태 파라미터로 받기
     @Query(value = """
-        select new com.example.umc9th.domain.mission.dto.responseDTO.MemberMissionDTO(
+        select new com.example.umc9th.domain.mission.dto.response.MemberMissionDTO(
             mm.id,
             mm.missionStatus,
             m.missionSpec,
