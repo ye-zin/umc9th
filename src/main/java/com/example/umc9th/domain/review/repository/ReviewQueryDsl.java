@@ -1,10 +1,10 @@
 package com.example.umc9th.domain.review.repository;
 
-import com.example.umc9th.domain.review.dto.response.MyReviewDTO;
+import com.example.umc9th.domain.review.entity.Review;
 
 import java.util.List;
 
 
 public interface ReviewQueryDsl {
-    List<MyReviewDTO> findMyReviews(Long memberId, String storeName, Double reviewScore);
+    List<Review> findMyReviews(Long memberId, String storeName, Double reviewScore);
 }

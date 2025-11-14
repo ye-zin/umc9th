@@ -2,6 +2,8 @@ package com.example.umc9th.domain.review.controller;
 
 import com.example.umc9th.domain.review.dto.response.MyReviewDTO;
 import com.example.umc9th.domain.review.service.ReviewService;
+import com.example.umc9th.global.apiPayload.ApiResponse;
+import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +20,12 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping("/me")
-
-    public List<MyReviewDTO> getMyReviews(
+    public ApiResponse<List<MyReviewDTO>> getMyReviews(
             @RequestParam Long memberId,
             @RequestParam(required = false) String storeName,
             @RequestParam(required = false) Double reviewScore
     ){
-        return reviewService.getMyReviews(memberId, storeName, reviewScore);
+        List<MyReviewDTO> myreviews = reviewService.getMyReviews(memberId, storeName, reviewScore);
+        return ApiResponse.onSuccess(GeneralSuccessCode.SUCCESS, myreviews);
     }
 }

@@ -12,10 +12,11 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class MyReviewDTO {
-    Long reviewId;
-    String storeName;
-    Double reviewScore;
-    String reviewBody;
-    List<ReviewImage> reviewImage;
-    LocalDateTime createdAt;
+    private Long reviewId;
+    private Long storeId;
+    private String storeName;
+    private Double reviewScore;
+    private String reviewContent;
+    private List<ReviewImage> reviewImage;
+    private LocalDateTime createdAt;
 }

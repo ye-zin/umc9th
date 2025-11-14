@@ -1,6 +1,7 @@
 package com.example.umc9th.domain.review.service;
 
 import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.review.converter.ReviewConverter;
 import com.example.umc9th.domain.review.dto.response.MyReviewDTO;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
@@ -19,12 +20,12 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public Review createReview(Member member, Store store, String reviewBody, Double score)
+    public Review createReview(Member member, Store store, String reviewContent, Double score)
     {
         Review review = Review.builder()
                               .member(member)
                               .store(store)
-                              .reviewBody(reviewBody)
+                              .reviewContent(reviewContent)
                               .reviewScore(score)
                               .build();
 
@@ -32,7 +33,8 @@ public class ReviewService {
     }
 
     public List<MyReviewDTO> getMyReviews(Long memberId, String storeName, Double reviewScore) {
-        return reviewRepository.findMyReviews(memberId, storeName, reviewScore);
+        List<Review> reviews = reviewRepository.findMyReviews(memberId, storeName, reviewScore);
+        return ReviewConverter.toMyReviewDTOList(reviews);
     }
 
 }

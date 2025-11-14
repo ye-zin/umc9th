@@ -17,8 +17,8 @@ import java.util.List;
 @Table(name = "review")
 public class Review extends BaseEntity {
 
-    @Column(name = "body", nullable = false)
-    private String reviewBody;
+    @Column(name = "content", nullable = false)
+    private String reviewContent;
 
     @Column(name = "score", nullable = false)
     private Double reviewScore;
