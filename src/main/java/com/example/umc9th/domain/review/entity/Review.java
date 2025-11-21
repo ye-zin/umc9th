@@ -35,6 +35,7 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "reply_id")
     private Reply reply;
 
-    @OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<ReviewImage> reviewImageList = new ArrayList<>();
 }

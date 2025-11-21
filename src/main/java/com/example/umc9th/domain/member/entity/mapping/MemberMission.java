@@ -21,7 +21,10 @@ public class MemberMission extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MissionStatus missionStatus;
 
-    @Column(name = "mission_completed_date", nullable = false)
+    @Column(name = "mission_started_date", nullable = false)
+    private LocalDateTime missionStartedDate;
+
+    @Column(name = "mission_completed_date")
     private LocalDateTime missionCompletedDate;
 
     @ManyToOne(fetch = FetchType.LAZY) // 지연 로딩
@@ -31,4 +34,13 @@ public class MemberMission extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY) // 지연 로딩
     @JoinColumn(name = "mission_id")
     private Mission mission;
+
+    public static MemberMission create(Member member, Mission mission) {
+        MemberMission mm = new MemberMission();
+        mm.member = member;
+        mm.mission = mission;
+        mm.missionStatus = MissionStatus.IN_PROGRESS;
+        mm.missionStartedDate = LocalDateTime.now();
+        return mm;
+    }
 }

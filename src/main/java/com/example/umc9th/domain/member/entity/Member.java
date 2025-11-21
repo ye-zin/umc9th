@@ -40,6 +40,9 @@ public class Member extends BaseEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "specAddress", nullable = false)
+    private String specAddress;
+
     @Column(name = "social_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
@@ -51,13 +54,15 @@ public class Member extends BaseEntity {
     private String email;
 
     @Column(name = "point", nullable = false)
-    private Integer point;
+    @Builder.Default
+    private Integer point = 0;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @Builder.Default
     private List<MemberFood> memberFoodList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")

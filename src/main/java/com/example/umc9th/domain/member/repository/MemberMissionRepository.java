@@ -1,13 +1,15 @@
-package com.example.umc9th.domain.mission.repository;
+package com.example.umc9th.domain.member.repository;
 
+import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.mission.dto.response.MemberMissionDTO;
 import com.example.umc9th.domain.mission.enums.MissionStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface MemberMissionRepository {
+public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
 
     // 미션 상태 파라미터로 받기
     @Query(value = """

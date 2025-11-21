@@ -19,6 +19,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
+    // 내가 작성한 리뷰 보기
     @GetMapping("/me")
     public ApiResponse<List<MyReviewDTO>> getMyReviews(
             @RequestParam Long memberId,

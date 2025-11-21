@@ -1,13 +1,66 @@
 package com.example.umc9th.domain.review.converter;
 
+import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.review.dto.request.ReviewCreateReqDTO;
 import com.example.umc9th.domain.review.dto.response.MyReviewDTO;
+import com.example.umc9th.domain.review.dto.response.ReviewCreateResDTO;
 import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.entity.ReviewImage;
+import com.example.umc9th.domain.store.entity.Store;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReviewConverter {
+    // 리뷰 생성용 엔티티 변환
+    public static Review toReview(ReviewCreateReqDTO dto, Store store, Member member) {
+        Review review = Review.builder()
+                .reviewContent(dto.getReviewContent())
+                .reviewScore(dto.getReviewScore())
+                .store(store)
+                .member(member)
+                .build();
 
+        // 이미지 URL 리스트가 있다면 ReviewImage 엔티티로 변환
+        List<String> imageUrls = dto.getReviewImage();
+        if (imageUrls != null && !imageUrls.isEmpty()) {
+            List<ReviewImage> reviewImages = new ArrayList<>();
+
+            for (String url : imageUrls) {
+                ReviewImage reviewImage = ReviewImage.builder()
+                        .reviewImage(url)
+                        .review(review)
+                        .build();
+                reviewImages.add(reviewImage);
+            }
+
+            // Review ↔ ReviewImage 양방향 세팅
+            review.getReviewImageList().addAll(reviewImages);
+        }
+
+        return review;
+    }
+
+    // 가게에 리뷰 작성
+    public static ReviewCreateResDTO toCreateReviewResponse(Review review){
+        List<String> imageUrls = review.getReviewImageList().stream()
+                .map(ReviewImage::getReviewImage)
+                .toList();
+
+        return ReviewCreateResDTO.builder()
+                .reviewId(review.getId())
+                .storeId(review.getStore().getId())
+                .memberId(review.getMember().getId())
+                .reviewContent(review.getReviewContent())
+                .reviewScore(review.getReviewScore())
+                .reviewImage(imageUrls)
+                .createdAt(review.getCreatedAt())
+                .build();
+    }
+
+
+    // 내 리뷰 조회용 : Entity -> DTO
     public static MyReviewDTO toMyReviewDTO(Review review){
         return MyReviewDTO.builder()
                 .reviewId(review.getId())
@@ -20,6 +73,7 @@ public class ReviewConverter {
                 .build();
     }
 
+    // Review 여러 개 -> DTO 여러 개. ex) 마이페이지에서 내가 쓴 리뷰 목록 조회
     public static List<MyReviewDTO> toMyReviewDTOList(List<Review> reviews) {
         return reviews.stream()
                 .map(ReviewConverter::toMyReviewDTO)
