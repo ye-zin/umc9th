@@ -1,6 +1,5 @@
 package com.example.umc9th.domain.review.dto.response;
 
-import com.example.umc9th.domain.review.entity.ReviewImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,5 @@
 package com.example.umc9th.domain.review.dto.request;
 
-import com.example.umc9th.domain.review.entity.ReviewImage;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

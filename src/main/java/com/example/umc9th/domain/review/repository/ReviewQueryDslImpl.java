@@ -1,6 +1,5 @@
 package com.example.umc9th.domain.review.repository;
 
-import com.example.umc9th.domain.review.dto.response.MyReviewDTO;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.example.umc9th.domain.review.entity.QReviewImage;
 import com.example.umc9th.domain.review.entity.Review;
@@ -9,6 +8,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl {
     private final EntityManager em;
 
     @Override
-    public List<Review> findMyReviews(Long memberId, String storeName, Double reviewScore) {
+    public List<Review> findMyReviews(Long memberId, String storeName, Double reviewScore, PageRequest pageRequest) {
 
         // JPA 세팅
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
