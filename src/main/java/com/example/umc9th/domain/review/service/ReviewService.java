@@ -53,5 +53,4 @@ public class ReviewService {
 
         return ReviewConverter.toMyReviewDTOList(reviews);
     }
-
 }
