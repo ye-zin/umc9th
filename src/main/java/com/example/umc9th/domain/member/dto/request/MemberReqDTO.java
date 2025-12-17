@@ -1,7 +1,9 @@
 package com.example.umc9th.domain.member.dto.request;
 
 import com.example.umc9th.domain.member.enums.Gender;
+import com.example.umc9th.domain.member.enums.SocialType;
 import com.example.umc9th.global.ExistFoods;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,6 +15,14 @@ public class MemberReqDTO {
     public record JoinDTO(
             @NotBlank
             String name,
+            @Email
+            String email,       // 추가
+            @NotBlank
+            String password,    // 추가
+            @NotBlank
+            String phone,
+            @NotBlank
+            String nickname,
             @NotNull
             Gender gender,
             @NotNull
@@ -22,6 +32,8 @@ public class MemberReqDTO {
             @NotNull
             String specAddress,
             @ExistFoods
-            List<Long> preferCategory
+            List<Long> preferCategory,
+            // 로그인 방식
+            SocialType socialType
     ){}
 }

@@ -11,7 +11,9 @@ import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.member.entity.mapping.MemberFood;
 import com.example.umc9th.domain.member.repository.MemberFoodRepository;
 import com.example.umc9th.domain.member.repository.MemberRepository;
+import com.example.umc9th.global.auth.enums.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,13 +28,21 @@ public class MemberCommandServiceImpl implements MemberCommandService{
     private final MemberRepository memberRepository;
     private final MemberFoodRepository memberFoodRepository;
     private final FoodRepository foodRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원가입
     @Override
     @Transactional
     public MemberResDTO.JoinDTO signup(MemberReqDTO.JoinDTO dto){
+
+        // 솔트된 비밀번호 생성
+        String salt = passwordEncoder.encode(dto.password());
+
         // 사용자 생성
-        Member member = MemberConverter.toMember(dto);
+        Member member = MemberConverter.toMember(dto, salt, Role.ROLE_USER);
+
+        // DB 적용
+        memberRepository.save(member);
 
 //        // 선호 음식 존재 여부 확인
 //        if (dto.preferCategory().size() > 1){
@@ -59,21 +69,23 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 //            memberFoodRepository.saveAll(memberFoodList);
 //        }
         // 선호 음식 존재 여부 확인
-        if (dto.preferCategory().size() > 1){
-            List<MemberFood> memberFood = dto.preferCategory().stream()
-                    .map(id -> MemberFood.builder()
+        if (!dto.preferCategory().isEmpty()){
+            List<Food> foods = foodRepository.findAllById(dto.preferCategory());
+
+            if (foods.size() != dto.preferCategory().size()) {
+                throw new FoodException(FoodErrorCode.NOT_FOUND);
+            }
+
+            List<MemberFood> memberFoods = foods.stream()
+                    .map(food -> MemberFood.builder()
                             .member(member)
-                            .food(foodRepository.findById(id)
-                                    .orElseThrow(() -> new FoodException(FoodErrorCode.NOT_FOUND)))
+                            .food(food)
                             .build()
                     )
-                    .collect(Collectors.toList());
+                    .toList();
 
-            memberFoodRepository.saveAll(memberFood);
+            memberFoodRepository.saveAll(memberFoods);
         }
-
-        // DB 적용
-        memberRepository.save(member);
 
         // 응답 DTO 생성
         return MemberConverter.toJoinDTO(member);

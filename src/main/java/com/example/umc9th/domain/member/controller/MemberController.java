@@ -38,6 +38,4 @@ public class MemberController {
         Page<MemberMissionDTO> myMissions = memberMissionQueryService.getMemberMissions(memberId, status, page);
         return ApiResponse.onSuccess(GeneralSuccessCode.SUCCESS, myMissions);
     }
-
-
 }

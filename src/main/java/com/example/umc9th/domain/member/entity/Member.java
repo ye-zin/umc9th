@@ -8,6 +8,7 @@ import com.example.umc9th.domain.member.enums.MemberStatus;
 import com.example.umc9th.domain.member.enums.SocialType;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.global.Entity.BaseEntity;
+import com.example.umc9th.global.auth.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +24,7 @@ import java.util.List;
 @Table(name = "member")
 public class Member extends BaseEntity {
 
-    @Column(name = "name", length = 3, nullable = false)
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
 
     @Column(name = "gender", nullable = false)
@@ -52,6 +53,12 @@ public class Member extends BaseEntity {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "point", nullable = false)
     @Builder.Default
