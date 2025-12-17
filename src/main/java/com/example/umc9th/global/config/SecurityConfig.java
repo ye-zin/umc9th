@@ -16,9 +16,9 @@ public class SecurityConfig {
     private final String[] allowUris = {
             "/api/**",
             "/api/auth/**",
-            "/swagger-ui/**",
-            "/swagger-resources/**",
-            "/v3/api-docs/**",
+//            "/swagger-ui/**",
+//            "/swagger-resources/**",
+//            "/v3/api-docs/**",
     };
 
     @Bean
@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(allowUris).permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/swagger-ui/index.html").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
