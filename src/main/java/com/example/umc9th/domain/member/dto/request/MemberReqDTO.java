@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MemberReqDTO {
 
-    public record JoinDTO(
+        public record JoinDTO(
             @NotBlank
             String name,
             @Email
@@ -35,5 +35,13 @@ public class MemberReqDTO {
             List<Long> preferCategory,
             // 로그인 방식
             SocialType socialType
-    ){}
+        ){}
+
+        // 로그인
+        public record LoginDTO(
+                @NotBlank
+                String email,
+                @NotBlank
+                String password
+        ){}
 }
